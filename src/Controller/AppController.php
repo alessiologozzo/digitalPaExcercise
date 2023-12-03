@@ -2,17 +2,13 @@
 
 namespace App\Controller;
 
-use App\Utility\DataPaginator;
 use Doctrine\ORM\EntityManagerInterface;
-// use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Image;
 use App\Utility\PaginatorInfo;
-
-define('ITEMS_PER_PAGE', 10);
 
 class AppController extends AbstractController
 {
@@ -21,6 +17,8 @@ class AppController extends AbstractController
     {
         $paginator = new PaginatorInfo($request, $em, Image::class);
         $items = $paginator->getResult();
+
+        //Formatto il campo date degli elementi per avere anno-mese-giorno
         $items = array_map(function ($item) {
             $item['date'] = date_format($item['date'], 'Y-m-d');
             return $item;
@@ -49,7 +47,7 @@ class AppController extends AbstractController
             }
 
             $em->flush();
-            $this->addFlash('success','Bloccate ' . $counter . ' immagini!');
+            $this->addFlash('success', 'Bloccate ' . $counter . ' immagini!');
         }
 
         return $this->redirectToRoute('app_home');
@@ -67,7 +65,7 @@ class AppController extends AbstractController
             }
 
             $em->flush();
-            $this->addFlash('success','Ripristinate ' . count($items) . ' immagini!');
+            $this->addFlash('success', 'Ripristinate ' . count($items) . ' immagini!');
         }
         return $this->redirectToRoute('app_home');
     }

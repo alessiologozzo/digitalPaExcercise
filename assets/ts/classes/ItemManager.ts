@@ -13,6 +13,7 @@ export class ItemManager {
     }
 
     public getItems() {
+        //restituisco una stringa invce che un Date nel campo date degli elementi
         return (this.items.map(item => ({...item}))).map(item => {
             item.date = (item.date as Date).toLocaleDateString()
             return item

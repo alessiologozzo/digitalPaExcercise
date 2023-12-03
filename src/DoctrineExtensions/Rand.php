@@ -1,5 +1,7 @@
 <?php
 
+//source https://stackoverflow.com/questions/10762538/how-to-select-randomly-with-doctrine
+
 namespace App\DoctrineExtensions;
     
     use Doctrine\ORM\Query\AST\Functions\FunctionNode;

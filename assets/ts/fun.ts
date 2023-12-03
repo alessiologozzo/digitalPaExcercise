@@ -1,5 +1,6 @@
 import { ItemManager } from "./classes/ItemManager"
 
+//Costruisce e renderizza il menu per cambiare il tema
 export function buildThemeMenu() {
     const themes = ["light", "retro", "dark", "coffee"]
     const previews = ['primary', 'secondary', 'accent']
@@ -49,6 +50,8 @@ export function buildThemeMenu() {
     })
 }
 
+//Acquisisce i dati degli elementi. Se esiste almeno un elemento lo renderizza a schermo.
+//Funzione chiamata nel body
 export function setItemManager(strItems: string) {
     const items: [] = JSON.parse(strItems)
     if(items.length > 0) {
@@ -57,6 +60,8 @@ export function setItemManager(strItems: string) {
     }
 }
 
+//Acquisisce i dati della paginazione. Se esiste più di una pagina renderizza la paginazione a schermo.
+//Funzione chiamata nel body
 export function setPagination(strPagination: string) {
     window.pagination = JSON.parse(strPagination)
     if(window.pagination.lastPage > 0)
@@ -68,7 +73,8 @@ export function setPagination(strPagination: string) {
     }
 }
 
-export function buildPagination() {
+//Costruisce e renderizza la paginazione
+function buildPagination() {
     const pagination = document.getElementById("pagination")
     const currentPage = window.pagination.currentPage
     const lastPage = window.pagination.lastPage
@@ -175,6 +181,7 @@ function addPaginationButtonListener(element: HTMLButtonElement, page: string) {
     })
 }
 
+//Chiama il server con parametro url random (GET)
 export function getRandomItems() {
     const form = document.createElement('form')
     form.method = 'get'
@@ -190,7 +197,8 @@ export function getRandomItems() {
     form.submit()
 }
 
-export function buildItemContainerCards() {
+//Costruisce e renderizza gli elementi con delle card
+function buildItemContainerCards() {
     const itemContainer = document.getElementById('itemContainer')
     itemContainer.textContent = ""
     itemContainer.className = ''
@@ -267,6 +275,7 @@ export function buildItemContainerCards() {
     })
 }
 
+//Chiama il server con parametro idsToBlock contenente gli id degli elementi da bloccare (POST)
 export function blockItems() {
     const form = document.createElement('form')
     form.method = 'POST'
@@ -284,11 +293,13 @@ export function blockItems() {
     form.submit()
 }
 
+//Abilita o disabilita il bottone per bloccare gli elementi se gli elementi da bloccare sono > 1
 function checkBtnBlocker() {
     const btnBlocker = document.getElementById('btnBlocker')
     window.itemManager.getBlockedItemIds().length > 0 ? btnBlocker.removeAttribute('disabled') : btnBlocker.setAttribute('disabled', '')
 }
 
+//Chiama il server e sblocca tutti gli elementi bloccati (POST) 
 export function restoreItems() {
     const form = document.createElement('form')
     form.method = 'POST'
@@ -300,7 +311,8 @@ export function restoreItems() {
     form.submit()
 }
 
-export function buildItemContainerTable() {
+//Costruisce e renderizza gli elementi con una tabella
+function buildItemContainerTable() {
     const items = window.itemManager.getItems()
     const itemContainer = document.getElementById('itemContainer')
 
@@ -369,6 +381,7 @@ export function buildItemContainerTable() {
     itemContainer.appendChild(table)
 }
 
+//Stabilisce se è necessario renderizzare gli elementi con delle card o in tabella a seconda della visualizzazione preferita dell'utente e la renderizza a schermo
 function buildItemContainer() {
     const visualization = localStorage.getItem('visualization')
     if (visualization == null || visualization == 'cards') {
@@ -379,6 +392,7 @@ function buildItemContainer() {
         buildItemContainerTable()
 }
 
+//Cambia la visualizzazione preferita dell'utente
 export function changeVisualization() {
     const visualization = localStorage.getItem('visualization')
     if (visualization == 'cards') {
