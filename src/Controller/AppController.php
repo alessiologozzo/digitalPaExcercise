@@ -24,10 +24,15 @@ class AppController extends AbstractController
             return $item;
         }, $items);
 
+        //Stabilisco se nel database c'è almeno un immagine bloccata (mi serve lato client per disabilitare o abilitare il bottone per il ripristino)
+        $isBlocked = $em->createQueryBuilder()->select('a')->from(Image::class, 'a')->where('a.visible = false')->setMaxResults(1)->getQuery()->getResult();
+        count($isBlocked) > 0 ? $isBlocked = true : $isBlocked = false;
+
         return $this->render('app/index.html.twig', [
             'controller_name' => 'AppController',
             'items' => $items,
-            'pagination' => $paginator->getPaginationInfo()
+            'pagination' => $paginator->getPaginationInfo(),
+            'isBlocked' => $isBlocked
         ]);
     }
 

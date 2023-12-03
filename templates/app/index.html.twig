@@ -50,10 +50,10 @@
 				</div>
 
 				<div class="col-span-1 flex justify-end items-center gap-4">
-					<button class="btn btn-square text-3xl tooltip" data-tip="Filtra per nome" onclick="window.fun.sortByName(event)">
+					<button class="btn btn-square text-3xl tooltip" data-tip="Ordina per nome" onclick="window.fun.sortByName(event)">
 						<i class="fa-solid fa-arrow-down-a-z"></i>
 					</button>
-					<button class="btn btn-square text-3xl tooltip" data-tip="Filtra per data" onclick="window.fun.sortByDate(event)">
+					<button class="btn btn-square text-3xl tooltip" data-tip="Ordina per data" onclick="window.fun.sortByDate(event)">
 						<i class="fa-solid fa-calendar-minus"></i>
 					</button>
 				</div>
@@ -64,7 +64,7 @@
 			<div class="grid grid-cols-1 md:grid-cols-2 py-12 gap-8">
 				<div class="col-span-1 flex flex-wrap gap-4">
 					<div id="btnBlocker" class="btn btn-error" onclick="window.fun.blockItems()" disabled>Conferma blocco immagini</div>
-					<div class="btn btn-info" onclick="window.fun.restoreItems()">Ripristina immagini</div>
+					<div id="btnRestore" class="btn btn-info" onclick="window.fun.restoreItems()">Ripristina immagini bloccate</div>
 				</div>
 
 				<div class="col-span-1 flex justify-end items-center">
@@ -79,7 +79,7 @@
 					<a href="/">
 						<button class="btn btn-accent">Ricarica la pagina</button>
 					</a>
-					<div class="btn btn-info" onclick="window.fun.restoreItems()">Ripristina immagini</div>
+					<div id="btnRestore" class="btn btn-info" onclick="window.fun.restoreItems()">Ripristina immagini bloccate</div>
 				</div>
 			</div>
 

@@ -12,7 +12,7 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body onload="window.fun.setItemManager('{{ items | json_encode }}'); window.fun.setPagination('{{ pagination | json_encode }}')">
+    <body onload="window.fun.setItemManager('{{ items | json_encode }}'); window.fun.setPagination('{{ pagination | json_encode }}'); window.fun.shouldRestoreButtonBeClickable('{{ isBlocked | json_encode }}')">
         {% block body %}{% endblock %}
         
         <script>

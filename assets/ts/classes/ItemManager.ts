@@ -35,8 +35,6 @@ export class ItemManager {
             this.blockedItemIds = this.blockedItemIds.filter(itemId => itemId != id)
         else
             this.blockedItemIds.push(id)
-
-        console.log(this.blockedItemIds)
     }
 
     public getBlockedItemIdsStringified() {

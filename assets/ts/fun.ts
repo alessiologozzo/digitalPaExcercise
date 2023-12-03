@@ -422,3 +422,14 @@ export function sortByDate(event: Event) {
     window.itemManager.sortByDate()
     buildItemContainer()
 }
+
+//Se nel database c'è almeno un elemento bloccato abilita il bottone per il ripristino
+//Funzione chiamata nel body
+export function shouldRestoreButtonBeClickable(blockedItemStr: string) {
+    const blockedItem: boolean = JSON.parse(blockedItemStr)
+    if(!blockedItem) {
+        const btnRestore = document.getElementById('btnRestore')
+        
+        btnRestore.setAttribute('disabled', '')
+    } 
+}
