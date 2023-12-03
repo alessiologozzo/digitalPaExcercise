@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!
+{% endblock %}
+
+{% block body %}
+
+	{# Topbar #}
+	<div class="px-3 py-2 flex justify-between bg-base-100 shadow-md shadow-base-300 mb-5">
+		<div class="w-full flex items-center gap-2 sm:gap-8">
+			<a href="/" class="flex items-center w-44">
+				<img src="{{ asset('images/logo_digitalpa2.png') }}" alt="logo" class="w-full">
+			</a>
+
+			<form method="get" class="w-full max-w-3xl rounded-xl relative">
+				<input type="text" name="search" id="search" placeholder="Cerca per nome..." class="input input-bordered input-primary w-full placeholder:opacity-80"/>
+
+				<button class="magn-glass bg-base-300 rounded-e-lg border border-primary cursor-pointer">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+			</form>
+		</div>
+
+		<div class="dropdown dropdown-end ms-6 sm:ms-32 md:ms-52 tooltip tooltip-bottom" data-tip="Temi">
+			<div tabindex="0" role="button" class="btn btn-ghost btn-circle m-1">
+				<i class="fa-solid fa-palette text-accent text-2xl"></i>
+			</div>
+			<div id="themeMenu" tabindex="0" class="dropdown-content z-[1] menu p-0 shadow bg-base-300 rounded-box w-72 overflow-hidden"></div>
+		</div>
+	</div>
+
+    {# Messaggi Flash #}
+	{% for msg in app.session.flashBag.get('success') %}
+		<div class="w-fit absolute top-20 left-1/2 -translate-x-1/2 disappear">
+			<div role="alert" class="alert alert-success">
+				<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+				<span>{{ msg }}</span>
+			</div>
+		</div>
+	{% endfor %}
+
+	{# Main Content #}
+	<main class="p-6 sm:p-12">
+		{% if items | length > 0 %}
+
+			<div class="grid grid-cols-2 pb-12">
+				<div class="col-span-1 flex flex-wrap gap-4">
+					<div class="btn btn-primary" onclick="window.fun.changeVisualization()">Cambia visualizzazione</div>
+					<div class="btn btn-accent" onclick="window.fun.getRandomItems()">Immagini casuali</div>
+				</div>
+
+				<div class="col-span-1 flex justify-end items-center gap-4">
+					<button class="btn btn-square text-3xl tooltip" data-tip="Filtra per nome" onclick="window.fun.sortByName(event)">
+						<i class="fa-solid fa-arrow-down-a-z"></i>
+					</button>
+					<button class="btn btn-square text-3xl tooltip" data-tip="Filtra per data" onclick="window.fun.sortByDate(event)">
+						<i class="fa-solid fa-calendar-minus"></i>
+					</button>
+				</div>
+			</div>
+
+			<div id="itemContainer"></div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 py-12 gap-8">
+				<div class="col-span-1 flex flex-wrap gap-4">
+					<div id="btnBlocker" class="btn btn-error" onclick="window.fun.blockItems()" disabled>Conferma blocco immagini</div>
+					<div class="btn btn-info" onclick="window.fun.restoreItems()">Ripristina immagini</div>
+				</div>
+
+				<div class="col-span-1 flex justify-end items-center">
+					<div id="pagination" class="join shadow-md shadow-base-300"></div>
+				</div>
+			</div>
+
+		{% else %}
+			<div class="absolute top-1/3 mt-20 left-1/2 -translate-x-1/2 -translate-y-1/2">
+				<h2 class="text-xl pb-8 font-bold">Non è stata trovata nessuna immagine corrispondente ai criteri di ricerca.</h2>
+				<div class="flex flex-wrap gap-4">
+					<a href="/">
+						<button class="btn btn-accent">Ricarica la pagina</button>
+					</a>
+					<div class="btn btn-info" onclick="window.fun.restoreItems()">Ripristina immagini</div>
+				</div>
+			</div>
+
+		{% endif %}
+	</main>
+
+
+    {# Ho sperimentato uno strano bug: aggiungendo dinamicamente classi da js certe volte (in maniera apparentemente casuale) il template non riesce a trovare le classi del progetto (le aggiunge ma sono vuote)
+    Per ovviare a questo problema e in attesa di trovare una soluzione definitiva, aggiungo tutte le classi che mi servono lato js in questo div invisibile. Per quanto non sia una soluzione elegante sembra funzionare. #}
+    <div class="flex items-center hover:bg-base-100 py-2 px-3 cursor-pointer radio radio-primary capitalize font-bold justify-between gap-5 bg-base-100 rounded-md w-full ms-5 bg-primary bg-secondary bg-accent
+                m-1 w-6 h-6 join-item btn max-w-super grid grid-cols-12 2xl:grid-cols-10 sm:gap-12 col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 2xl:col-span-2 transition-transform duration-300 hover:scale-105 mb-10 sm:mb-0
+                card w-full glass bg-accent bg-opacity-5 shadow-md shadow-base-300 card-body card-title card-actions text-2xl btn btn-warning btn-success overflow-x-auto text-xl text-center m-auto rounded-full shadow shadow-md
+                shadow-base-300 table checkbox hidden"></div>
+{% endblock %}

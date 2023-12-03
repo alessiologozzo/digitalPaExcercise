@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.magn-glass {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.max-w-super {
+    max-width: 2500px;
+    margin: auto;
+}
+
+@keyframes animation-disappear {
+    from { opacity: 1; }
+    50% { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.disappear {
+    opacity: 0;
+    animation: animation-disappear 4s linear;
+}
