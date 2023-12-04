@@ -14,7 +14,7 @@ class PaginatorInfo {
 
     public function __construct(Request $request, EntityManagerInterface $em, string $entityName, int $itemsPerPage = 10) {
         $page = $request->query->get('page');
-        isset($page) ? $this->currentPage = $page : $this->currentPage = 1; 
+        isset($page) && is_numeric($page) && (int) $page > 0 ? $this->currentPage = (int) $page : $this->currentPage = 1; 
 
         $search = $request->query->get('search');
 
