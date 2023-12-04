@@ -24,7 +24,7 @@ class PaginatorInfo {
         if(isset($random))
             $qb->orderBy('RAND()');
         else if(isset($search)) {
-            $qb->where('a.name LIKE :search')->setParameter('search', $search . '%');
+            $qb->where('a.visible = true AND a.name LIKE :search')->setParameter('search', $search . '%');
             $this->lastSearch = $search;
         }
 
