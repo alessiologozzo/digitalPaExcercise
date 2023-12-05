@@ -42,17 +42,15 @@ class AppController extends AbstractController
         if ($request->getMethod() == 'POST') {
             $idsStr = $request->request->get('idsToBlock');
             $ids = json_decode($idsStr);
-            $counter = 0;
 
-            foreach ($ids as $id) {
-                $item = $em->getRepository(Image::class)->find($id);
+            $items = $em->createQueryBuilder()->select('a')->from(Image::class, 'a')->where('a.id IN (:ids)')->setParameter('ids', $ids)->getQuery()->getResult();
+            foreach($items as $item) {
                 $item->setVisible(false);
                 $em->persist($item);
-                $counter++;
             }
 
             $em->flush();
-            $this->addFlash('success', 'Bloccate ' . $counter . ' immagini!');
+            $this->addFlash('success', 'Bloccate ' . count($ids) . ' immagini!');
         }
 
         return $this->redirectToRoute('app_home');
