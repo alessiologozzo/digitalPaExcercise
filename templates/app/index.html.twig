@@ -13,7 +13,7 @@
 			</a>
 
 			<form method="get" class="w-full max-w-3xl rounded-xl relative">
-				<input type="text" name="search" id="search" placeholder="Cerca per nome..." class="input input-bordered input-primary w-full placeholder:opacity-80"/>
+				<input type="text" name="search" id="search" placeholder="Cerca per nome..." class="input input-bordered input-primary w-full placeholder:opacity-80 pe-14"/>
 
 				<button class="magn-glass bg-base-300 rounded-e-lg border border-primary cursor-pointer">
 					<i class="fa-solid fa-magnifying-glass"></i>
@@ -31,7 +31,7 @@
 
     {# Messaggi Flash #}
 	{% for msg in app.session.flashBag.get('success') %}
-		<div class="w-fit sticky top-20 left-1/2 -translate-x-1/2 disappear z-50">
+		<div class="w-fit sticky top-20 left-1/2 -translate-x-1/2 disappear z-50 pointer-events-none">
 			<div role="alert" class="alert alert-success">
 				<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 				<span>{{ msg }}</span>
